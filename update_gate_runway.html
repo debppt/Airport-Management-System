@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Gate/Runway - Amravati Airport</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    /* Main Container */
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 100px auto; /* Center the form */
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Title */
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    /* Label */
+    .label {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+      display: block;
+      text-align: left;
+    }
+
+    /* Input Field */
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    /* Button */
+    .button {
+      display: inline-block;
+      width: 100%;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .button:hover {
+      background-color: #0056b3; /* Darker blue */
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Form Container -->
+  <div class="container">
+    <!-- Title -->
+    <div class="title">Update Gate or Runway</div>
+
+    <!-- Update Form -->
+    <form action="update_employee_gate_runway_action.html" method="POST">
+      <!-- Employee ID Field -->
+      <label for="employee-id" class="label">Employee ID:</label>
+      <input type="text" id="employee-id" name="employee-id" class="input-field" placeholder="Enter Employee ID" required>
+
+      <!-- Dropdown for selecting Gate or Runway -->
+      <label for="update-type" class="label">Select Update Type:</label>
+      <select id="update-type" name="update-type" class="dropdown" required>
+        <option value="">-- Select Option --</option>
+        <option value="gate">Gate Number</option>
+        <option value="runway">Runway Number</option>
+      </select>
+
+      <!-- Input for Gate or Runway Number -->
+      <label for="new-number" class="label">Enter New Gate/Runway Number:</label>
+      <input type="text" id="new-number" name="new-number" class="input-field" placeholder="Enter New Gate or Runway Number" required>
+
+      <!-- Update Button -->
+      <button type="submit" class="button">Update</button>
+    </form>
+  </div>
+
+</body>
+</html>

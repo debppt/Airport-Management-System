@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Ticket - Amravati Airport</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    /* Main Container */
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 100px auto; /* Center the form */
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Title */
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    /* Label */
+    .label {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+      display: block;
+      text-align: left;
+    }
+
+    /* Input Field */
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    /* Button */
+    .button {
+      display: inline-block;
+      width: 100%;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background-color: #0056b3; /* Darker blue */
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Form Container -->
+  <div class="container">
+    <!-- Title -->
+    <div class="title">Book Your Ticket</div>
+
+    <!-- Ticket Booking Form -->
+    <form action="book_ticket_action.html" method="POST">
+
+      <!-- Flight Date -->
+      <label for="flight-date" class="label">Flight Date:</label>
+      <input type="date" id="flight-date" name="flight-date" class="input-field" required>
+
+      <!-- Destination ID -->
+      <label for="destination-id" class="label">Destination:</label>
+      <input type="text" id="destination-id" name="destination-id" class="input-field" placeholder="Enter Destination" required>
+
+      <!-- Book Ticket Button -->
+      <a href = "" class="button">Check Available Flights</a>
+    </form>
+  </div>
+
+</body>
+</html>
+
