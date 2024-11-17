@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Airline - Admin Dashboard</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Container Styling */
+    .form-container {
+      width: 90%;
+      max-width: 600px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Input Fields */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: #555;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: #007BFF;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Back Button */
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      color: #007BFF;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">Add Airline</div>
+    <form action="process-add-airline.php" method="POST">
+      <!-- Airline Name -->
+      <div class="form-group">
+        <label for="airline-name" class="form-label">Airline Name</label>
+        <input type="text" id="airline-name" name="airline_name" class="form-input" placeholder="Enter Airline Name" required>
+      </div>
+
+      <!-- IATA Code -->
+      <div class="form-group">
+        <label for="iata-code" class="form-label">IATA Code</label>
+        <input type="text" id="iata-code" name="iata_code" class="form-input" placeholder="Enter IATA Code (e.g., AA)" required>
+      </div>
+
+      <!-- CEO Name -->
+      <div class="form-group">
+        <label for="ceo-name" class="form-label">CEO</label>
+        <input type="text" id="ceo-name" name="ceo_name" class="form-input" placeholder="Enter CEO's Name" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn">Add Airline</button>
+    </form>
+
+    <!-- Back to Dashboard -->
+    <a href="admin_landing_page.html" class="back-link">Back to Dashboard</a>
+  </div>
+</body>
+</html>

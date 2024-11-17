@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Flight Details - Admin Dashboard</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Container Styling */
+    .form-container {
+      width: 90%;
+      max-width: 700px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Input Fields */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: #555;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: #007BFF;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Back Button */
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      color: #007BFF;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">Add Flight Details</div>
+    <form action="process-add-flight.php" method="POST">
+      <!-- Flight Number -->
+      <div class="form-group">
+        <label for="flight-number" class="form-label">Flight Number</label>
+        <input type="text" id="flight-number" name="flight_number" class="form-input" placeholder="Enter Flight Number (e.g., AI-101)" required>
+      </div>
+
+      <!-- Airline -->
+      <div class="form-group">
+        <label for="airline" class="form-label">Airline</label>
+        <input type="text" id="airline" name="airline" class="form-input" placeholder="Enter Airline Name" required>
+      </div>
+
+      <!-- City -->
+      <div class="form-group">
+        <label for="city" class="form-label">City</label>
+        <input type="text" id="city" name="city" class="form-input" placeholder="Enter City Name" required>
+      </div>
+
+      <!-- Flight Status (Arriving or Departing) -->
+      <div class="form-group">
+        <label for="flight-status" class="form-label">Flight Status</label>
+        <select id="flight-status" name="flight_status" class="form-input" required>
+          <option value="Arriving">Arriving</option>
+          <option value="Departing">Departing</option>
+        </select>
+      </div>
+
+      <!-- Departure Time -->
+      <div class="form-group">
+        <label for="departure-time" class="form-label">Departure Time</label>
+        <input type="datetime-local" id="departure-time" name="departure_time" class="form-input" required>
+      </div>
+
+      <!-- Arrival Time -->
+      <div class="form-group">
+        <label for="arrival-time" class="form-label">Arrival Time</label>
+        <input type="datetime-local" id="arrival-time" name="arrival_time" class="form-input" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn">Add Flight</button>
+    </form>
+
+    <!-- Back to Dashboard -->
+    <a href="admin_landing_page.html" class="back-link">Back to Dashboard</a>
+  </div>
+</body>
+</html>

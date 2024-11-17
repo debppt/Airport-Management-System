@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amravati Airport</title>
+  <style>
+    /* Body Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center; /* Vertically center the content */
+      width: 100vw;
+      height: 100vh; /* Full height of the viewport */
+      background-color: #f5f5f5; /* Light gray background for contrast */
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Centered Content */
+    .content-container {
+      width: 90%;
+      max-width: 1200px;
+      background: #ffffff; /* White background */
+      border-radius: 16px; /* Rounded corners */
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    /* Welcome Text */
+    .welcome-text {
+      font-size: 64px; /* Adjusted for better fit */
+      font-weight: 600;
+      color: #333333; /* Darker text for better readability */
+      margin-bottom: 50px;
+    }
+
+    /* Buttons Styling */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; /* Allow wrapping for smaller screens */
+      gap: 20px; /* Space between buttons */
+      margin-bottom: 40px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 300px;
+      height: 60px;
+      background: #007BFF; /* Primary blue color */
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 500;
+      text-transform: capitalize;
+      border: none;
+      border-radius: 8px; /* Smooth edges */
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Slight elevation */
+      transition: all 0.3s ease;
+    }
+
+    /* Button Hover Effect */
+    .button:hover {
+      background: #0056b3; /* Darker blue on hover */
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); /* More elevation */
+    }
+  </style>
+</head>
+<body>
+  <div class="content-container">
+    <!-- Welcome Text -->
+    <div class="welcome-text">Welcome To Amravati Airport</div>
+
+    <!-- Buttons -->
+    <div class="button-container">
+        <a href="admin_sign_in.html" class="button">Login As Admin</a>
+        <a href="pass_sign_in.html" class="button">Login As Passenger</a>
+        <a href="employee_sign_in.html" class="button">Login As Employee</a>
+    </div>
+
+    <!-- Sign Up Buttons -->
+    <div class="button-container">
+        <a href="pass_sign_up.html" class="button">Sign Up (Passenger)</a>
+        <a href="employee_sign_up.html" class="button">Sign Up (Employee)</a>
+    </div>
+  </div>
+</body>
+</html>

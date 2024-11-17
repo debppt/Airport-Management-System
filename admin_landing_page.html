@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Amravati Airport</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    /* Header Styling */
+    .header {
+      background-color: #007BFF;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    /* Admin Options Container */
+    .admin-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto; /* Center the grid */
+    }
+
+    /* Admin Option Cards */
+    .option-card {
+      height: 150px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Option Text */
+    .option-text {
+      font-size: 50px;
+      font-weight: 500;
+      color: #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">Admin Dashboard - Amravati Airport</div>
+
+  <!-- Admin Options -->
+  <div class="admin-container">
+    <!-- View Passengers -->
+    <a href="view-passengers.html" class="option-card">
+      <div class="option-text">View Passengers</div>
+    </a>
+
+    <!-- Add Airline -->
+    <a href="add_airline.html" class="option-card">
+      <div class="option-text">Add Airline</div>
+    </a>
+
+    <!-- Add Flight Details -->
+    <a href="add-flight-details.html" class="option-card">
+      <div class="option-text">Add Flight Details</div>
+    </a>
+
+    <!-- View Employees -->
+    <a href="view-employees.html" class="option-card">
+      <div class="option-text">View Employees</div>
+    </a>
+
+    <!-- Manage Tickets -->
+    <a href="manage-tickets.html" class="option-card">
+      <div class="option-text">Manage Tickets</div>
+    </a>
+
+    <!-- View Reports -->
+    <a href="view-reports.html" class="option-card">
+      <div class="option-text">View Reports</div>
+    </a>
+  </div>
+</body>
+</html>

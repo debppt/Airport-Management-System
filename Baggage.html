@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baggage and Passenger Status</title>
+  <style>
+    /* General Body Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Full viewport height */
+      background-color: #f5f5f5; /* Light gray background */
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Centered Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      background: #ffffff; /* White background */
+      border-radius: 16px; /* Rounded corners */
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Heading Styling */
+    .title {
+      font-size: 36px;
+      font-weight: 600;
+      color: #333333;
+      margin-bottom: 30px;
+    }
+
+    /* Section Styling */
+    .section {
+      font-size: 32px;
+      font-weight: 400;
+      color: #333333;
+      margin-bottom: 30px;
+    }
+
+    /* Input Field Styling */
+    .input-field {
+      width: 349px;
+      height: 44px;
+      margin: 10px auto;
+      background: #D9D9D9;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 400;
+      color: black;
+      border-radius: 8px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    /* Button Styling */
+    .button {
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      background: #007BFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      margin-top: 30px;
+    }
+
+    .button:hover {
+      background: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Output Section */
+    .output-section {
+      font-size: 24px;
+      font-weight: 400;
+      color: #333333;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Title -->
+    <div class="title">Baggage and Passenger Status</div>
+
+    <!-- Form -->
+    <form id="status-form">
+      <!-- Baggage ID Section -->
+      <div class="section">Baggage ID:</div>
+      <input type="text" id="baggage-id" class="input-field" placeholder="Enter Baggage ID" required>
+
+      <!-- Passenger ID Section -->
+      <div class="section">Passenger ID:</div>
+      <input type="text" id="passenger-id" class="input-field" placeholder="Enter Passenger ID" required>
+
+      <!-- Check Status Button -->
+      <button type="submit" class="button">Check Status</button>
+    </form>
+
+    <!-- Output Section -->
+    <div id="status-output" class="output-section"></div>
+  </div>
+
+  <script>
+    // Handle form submission
+    document.getElementById('status-form').addEventListener('submit', function(event) {
+      event.preventDefault();  // Prevent page refresh on form submit
+
+      // Get the values from the input fields
+      const baggageId = document.getElementById('baggage-id').value;
+      const passengerId = document.getElementById('passenger-id').value;
+
+      // Display the status message
+      const statusOutput = document.getElementById('status-output');
+      if (baggageId && passengerId) {
+        // Simulate checking the status with a message
+        statusOutput.textContent = `Checking status for Baggage ID: ${baggageId} and Passenger ID: ${passengerId}...`;
+        setTimeout(function() {
+          statusOutput.textContent = `Status: The baggage and passenger information is successfully retrieved.`;
+        }, 2000);  // Simulate a delay in status retrieval
+      } else {
+        statusOutput.textContent = 'Please enter both Baggage ID and Passenger ID.';
+      }
+    });
+  </script>
+</body>
+</html>
