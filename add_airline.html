@@ -17,7 +17,6 @@
       height: 100vh;
     }
 
-    /* Container Styling */
     .form-container {
       width: 90%;
       max-width: 600px;
@@ -27,7 +26,6 @@
       box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
     }
 
-    /* Form Header */
     .form-header {
       text-align: center;
       font-size: 24px;
@@ -36,7 +34,6 @@
       margin-bottom: 20px;
     }
 
-    /* Input Fields */
     .form-group {
       margin-bottom: 20px;
     }
@@ -63,7 +60,6 @@
       border-color: #007BFF;
     }
 
-    /* Submit Button */
     .submit-btn {
       width: 100%;
       padding: 12px;
@@ -81,7 +77,19 @@
       background-color: #0056b3;
     }
 
-    /* Back Button */
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
     .back-link {
       display: block;
       margin-top: 20px;
@@ -100,30 +108,32 @@
 <body>
   <div class="form-container">
     <div class="form-header">Add Airline</div>
-    <form action="process-add-airline.php" method="POST">
-      <!-- Airline Name -->
+    
+    <!-- Display Success or Error Messages -->
+    {% if success %}
+    <div class="message success">{{ success }}</div>
+    {% elif error %}
+    <div class="message error">{{ error }}</div>
+    {% endif %}
+
+    <form action="/add_airline" method="POST">
       <div class="form-group">
         <label for="airline-name" class="form-label">Airline Name</label>
         <input type="text" id="airline-name" name="airline_name" class="form-input" placeholder="Enter Airline Name" required>
       </div>
 
-      <!-- IATA Code -->
       <div class="form-group">
         <label for="iata-code" class="form-label">IATA Code</label>
         <input type="text" id="iata-code" name="iata_code" class="form-input" placeholder="Enter IATA Code (e.g., AA)" required>
       </div>
 
-      <!-- CEO Name -->
       <div class="form-group">
         <label for="ceo-name" class="form-label">CEO</label>
         <input type="text" id="ceo-name" name="ceo_name" class="form-input" placeholder="Enter CEO's Name" required>
       </div>
 
-      <!-- Submit Button -->
       <button type="submit" class="submit-btn">Add Airline</button>
     </form>
-
-    <!-- Back to Dashboard -->
     <a href="/admin_landing_page" class="back-link">Back to Dashboard</a>
   </div>
 </body>

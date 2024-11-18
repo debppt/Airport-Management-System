@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import mysql.connector
 from flask_cors import CORS
 from mysql.connector import IntegrityError
+import re #for iata validation
 
 app = Flask(__name__, template_folder='.')
 CORS(app)
@@ -17,6 +18,10 @@ def get_db_connection():
         password='namanmysql@1',
         database='airport'
     )
+
+def is_valid_iata_code(iata_code):
+    # A valid IATA code is exactly 2 uppercase letters
+    return bool(re.match(r'^[A-Z]{2}$', iata_code))
 
 # =======================
 # Homepage and Navigation
@@ -180,6 +185,46 @@ def admin_landing_page():
 
 @app.route('/add_airline_page')
 def add_airline_page():
+    return render_template('add_airline.html')
+
+@app.route('/add_airline', methods=['GET', 'POST'])
+def add_airline():
+    if request.method == 'POST':
+        # Retrieve form data
+        airline_name = request.form.get('airline_name')
+        iata_code = request.form.get('iata_code')
+        ceo_name = request.form.get('ceo_name')
+
+        # Validate IATA code format
+        if not is_valid_iata_code(iata_code):
+            return render_template('add_airline.html', error="Invalid IATA Code. It should be exactly 2 uppercase letters.")
+
+        try:
+            # Connect to the database
+            conn = get_db_connection()
+            cursor = conn.cursor()
+
+            # Insert query
+            query = """
+            INSERT INTO Airline (Airline_Name,  CEO, IATA_Code)
+            VALUES (%s, %s, %s)
+            """
+            cursor.execute(query, (airline_name, ceo_name, iata_code))
+            conn.commit()
+
+            # Close the connection
+            cursor.close()
+            conn.close()
+
+            # Success response
+            return render_template('add_airline.html', success="Airline added successfully!")
+
+        except IntegrityError:
+            return render_template('add_airline.html', error="IATA Code already exists. Please use a unique IATA Code.")
+        except Exception as e:
+            return render_template('add_airline.html', error=f"An error occurred: {str(e)}")
+
+    # Render form for GET request
     return render_template('add_airline.html')
 
 @app.route('/ADD_FLIGHT_DETAILS')
