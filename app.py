@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import mysql.connector
 from flask_cors import CORS
-from mysql.connector import IntegrityError
+from mysql.connector import IntegrityError, Error
 import re #for iata validation
 from datetime import datetime
 
@@ -351,9 +351,69 @@ def delete_employee():
 
 
 
-@app.route('/add_employee')
+@app.route('/add_employee', methods=['GET', 'POST'])
 def add_employee():
+    if request.method == 'POST':
+        # Get data from the form
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        salary = request.form['salary']
+        gate_number = request.form['gate_number']
+        runway_number = request.form['runway_number']
+
+        # Validate inputs to adhere to the check constraint
+        if gate_number and runway_number:
+            error = "You can only provide either Gate Number or Runway Number, not both."
+            return render_template('add_employee.html', error=error)
+        if not gate_number and not runway_number:
+            error = "You must provide either Gate Number or Runway Number."
+            return render_template('add_employee.html', error=error)
+
+        # Database connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Validate Gate Number or Runway Number exists
+        if gate_number:
+            cursor.execute("SELECT * FROM gate WHERE Gate_No = %s", (gate_number,))
+            gate = cursor.fetchone()
+            if not gate:
+                error = "Invalid Gate Number."
+                cursor.close()
+                conn.close()
+                return render_template('add_employee.html', error=error)
+            runway_number = None  # Ensure runway is NULL if gate is provided
+        elif runway_number:
+            cursor.execute("SELECT * FROM runway WHERE Runway_No = %s", (runway_number,))
+            runway = cursor.fetchone()
+            if not runway:
+                error = "Invalid Runway Number."
+                cursor.close()
+                conn.close()
+                return render_template('add_employee.html', error=error)
+            gate_number = None  # Ensure gate is NULL if runway is provided
+
+        # Insert the employee data into the 'employee' table
+        try:
+            cursor.execute("""
+                INSERT INTO employee (F_Name, L_Name, Salary, G_No, R_No)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (first_name, last_name, salary, gate_number, runway_number))
+            conn.commit()
+            success = "Employee added successfully."
+            cursor.close()
+            conn.close()
+            return render_template('add_employee.html', success=success)
+
+        except Exception as e:
+            conn.rollback()
+            error = f"Error adding employee: {str(e)}"
+            cursor.close()
+            conn.close()
+            return render_template('add_employee.html', error=error)
+
     return render_template('add_employee.html')
+
 
 @app.route('/update_g_r')
 def update_g_r():

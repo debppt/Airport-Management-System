@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Employee Information</title>
+  <title>Add Employee</title>
   <style>
     /* General Body Styling */
     body {
@@ -12,8 +12,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* Full viewport height */
-      background-color: #f5f5f5; /* Light gray background */
+      min-height: 100vh;
+      background-color: #f5f5f5;
       font-family: 'Inter', sans-serif;
     }
 
@@ -21,20 +21,35 @@
     .form-container {
       width: 90%;
       max-width: 800px;
-      background: #ffffff; /* White background */
-      border-radius: 16px; /* Rounded corners */
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
       padding: 40px;
       text-align: left;
     }
 
     /* Form Title */
     .form-title {
-      font-size: 36px; /* Title size */
+      font-size: 36px;
       font-weight: 600;
-      color: #333333; /* Darker text */
+      color: #333333;
       text-align: center;
       margin-bottom: 30px;
+    }
+
+    /* Error or Success Message */
+    .message {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success {
+      color: green;
     }
 
     /* Form Label */
@@ -65,80 +80,74 @@
       font-size: 20px;
       font-weight: 500;
       color: #ffffff;
-      background: #007BFF; /* Primary blue color */
+      background: #007BFF;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Slight elevation */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
       margin-bottom: 20px;
     }
 
     .form-button:hover {
-      background: #0056b3; /* Darker blue on hover */
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); /* More elevation */
-    }
-
-    /* Output Section */
-    .output-section {
-      font-size: 20px;
-      font-weight: 500;
-      color: #333333;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    /* Section Titles */
-    .section-title {
-      font-size: 32px;
-      font-weight: 400;
-      color: black;
-      text-align: center;
-      margin-bottom: 20px;
+      background: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <!-- Form Title -->
-    <div class="form-title">Employee Information</div>
+    <div class="form-title">Add Employee</div>
+
+    <!-- Display Error or Success Messages -->
+    {% if error %}
+      <div class="message error">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+      <div class="message success">{{ success }}</div>
+    {% endif %}
 
     <!-- Employee Information Form -->
-    <form id="employee-form">
+    <form method="POST" id="employee-form">
       <!-- First Name -->
       <label for="first-name" class="form-label">First Name:</label>
-      <input type="text" id="first-name" class="form-input" placeholder="Enter your first name" required>
+      <input type="text" id="first-name" name="first_name" class="form-input" placeholder="Enter your first name" required>
 
       <!-- Last Name -->
       <label for="last-name" class="form-label">Last Name:</label>
-      <input type="text" id="last-name" class="form-input" placeholder="Enter your last name" required>
+      <input type="text" id="last-name" name="last_name" class="form-input" placeholder="Enter your last name" required>
 
       <!-- Salary -->
       <label for="salary" class="form-label">Salary:</label>
-      <input type="text" id="salary" class="form-input" placeholder="Enter your salary" required>
+      <input type="number" id="salary" name="salary" class="form-input" placeholder="Enter your salary" required>
 
       <!-- Gate Number -->
       <label for="gate-number" class="form-label">Gate Number:</label>
-      <input type="text" id="gate-number" class="form-input" placeholder="Enter gate number" required>
+      <input type="text" id="gate-number" name="gate_number" class="form-input" placeholder="Enter gate number">
 
       <!-- Runway Number -->
       <label for="runway-number" class="form-label">Runway Number:</label>
-      <input type="text" id="runway-number" class="form-input" placeholder="Enter runway number" required>
+      <input type="text" id="runway-number" name="runway_number" class="form-input" placeholder="Enter runway number">
 
-      <!-- Generate Employee ID -->
-      <button type="button" class="form-button" id="generate-id">Generate Employee ID</button>
-
-      <!-- Display Employee ID -->
-      <div class="output-section" id="employee-id-display">Your Employee ID will appear here.</div>
-
+      <!-- Submit Button -->
+      <button type="submit" class="form-button">Add Employee</button>
     </form>
   </div>
 
   <script>
-    // Generate Employee ID
-    document.getElementById('generate-id').addEventListener('click', function() {
-      const employeeId = `EMP-${Math.floor(100000 + Math.random() * 900000)}`;
-      document.getElementById('employee-id-display').textContent = `Your Employee ID: ${employeeId}`;
+    // Form Validation Script
+    document.getElementById('employee-form').addEventListener('submit', function(event) {
+      const gateNumber = document.getElementById('gate-number').value.trim();
+      const runwayNumber = document.getElementById('runway-number').value.trim();
+
+      // Validate that either Gate Number or Runway Number is provided, but not both
+      if (gateNumber && runwayNumber) {
+        alert("You can only provide either Gate Number or Runway Number, not both.");
+        event.preventDefault();
+      } else if (!gateNumber && !runwayNumber) {
+        alert("You must provide either Gate Number or Runway Number.");
+        event.preventDefault();
+      }
     });
   </script>
 </body>
