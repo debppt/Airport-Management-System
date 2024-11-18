@@ -312,9 +312,44 @@ def add_flight():
 def view_employees():
     return render_template('view_employee.html')
 
-@app.route('/delete_employee')
-def delete_employees():
+@app.route('/delete_employee', methods=['GET', 'POST'])
+def delete_employee():
+    if request.method == 'POST':
+        employee_id = request.form['employee_id']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        try:
+            # Check if the employee exists first
+            cursor.execute("SELECT * FROM employee WHERE Employee_id = %s", (employee_id,))
+            employee = cursor.fetchone()
+
+            if employee is None:
+                # Employee does not exist
+                error = "Employee ID does not exist."
+                cursor.close()
+                conn.close()
+                return render_template('delete_employee.html', error=error)
+
+            # Employee exists, now delete it
+            cursor.execute("DELETE FROM employee WHERE Employee_id = %s", (employee_id,))
+            conn.commit()
+
+            success = "Employee deleted successfully."
+            cursor.close()
+            conn.close()
+            return render_template('delete_employee.html', success=success)
+
+        except Exception as e:
+            conn.rollback()
+            error = f"Error deleting employee: {str(e)}"
+            cursor.close()
+            conn.close()
+            return render_template('delete_employee.html', error=error)
+
     return render_template('delete_employee.html')
+
+
 
 @app.route('/add_employee')
 def add_employee():
