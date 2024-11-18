@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Flight Details - Admin Dashboard</title>
+  <title>Add Flight Details</title>
   <style>
     /* Global Styles */
     body {
@@ -13,8 +13,10 @@
       background-color: #f5f5f5;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: flex-start;  /* Adjust alignment to start at the top */
+      min-height: 100vh;
+      overflow-x: hidden;  /* Prevent horizontal scroll */
+      padding-top: 30px; /* Add padding to the top to ensure form isn't stuck to the top */
     }
 
     /* Container Styling */
@@ -25,6 +27,8 @@
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      overflow-y: auto; /* Allow scrolling inside the form */
+      height: auto; /* Adjust to content height */
     }
 
     /* Form Header */
@@ -81,6 +85,25 @@
       background-color: #0056b3;
     }
 
+    /* Success/Error Message */
+    .message-box {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
     /* Back Button */
     .back-link {
       display: block;
@@ -100,29 +123,29 @@
 <body>
   <div class="form-container">
     <div class="form-header">Add Flight Details</div>
-    <form action="process-add-flight.php" method="POST">
+    <form action="/add_flight" method="POST">
       <!-- Flight Number -->
       <div class="form-group">
-        <label for="flight-number" class="form-label">Flight Number</label>
-        <input type="text" id="flight-number" name="flight_number" class="form-input" placeholder="Enter Flight Number (e.g., AI-101)" required>
+        <label for="flight_number" class="form-label">Flight Number</label>
+        <input type="text" id="flight_number" name="flight_number" class="form-input" placeholder="Enter Flight ID (e.g., 101)" required>
       </div>
 
-      <!-- Airline -->
+      <!-- Airline Name -->
       <div class="form-group">
         <label for="airline" class="form-label">Airline</label>
         <input type="text" id="airline" name="airline" class="form-input" placeholder="Enter Airline Name" required>
       </div>
 
-      <!-- City -->
+      <!-- City (for Airport lookup) -->
       <div class="form-group">
         <label for="city" class="form-label">City</label>
         <input type="text" id="city" name="city" class="form-input" placeholder="Enter City Name" required>
       </div>
 
-      <!-- Flight Status (Arriving or Departing) -->
+      <!-- Flight Status -->
       <div class="form-group">
-        <label for="flight-status" class="form-label">Flight Status</label>
-        <select id="flight-status" name="flight_status" class="form-input" required>
+        <label for="flight_status" class="form-label">Flight Status</label>
+        <select id="flight_status" name="flight_status" class="form-input" required>
           <option value="Arriving">Arriving</option>
           <option value="Departing">Departing</option>
         </select>
@@ -130,21 +153,39 @@
 
       <!-- Departure Time -->
       <div class="form-group">
-        <label for="departure-time" class="form-label">Departure Time</label>
-        <input type="datetime-local" id="departure-time" name="departure_time" class="form-input" required>
+        <label for="departure_time" class="form-label">Departure Time</label>
+        <input type="datetime-local" id="departure_time" name="departure_time" class="form-input" required>
       </div>
 
       <!-- Arrival Time -->
       <div class="form-group">
-        <label for="arrival-time" class="form-label">Arrival Time</label>
-        <input type="datetime-local" id="arrival-time" name="arrival_time" class="form-input" required>
+        <label for="arrival_time" class="form-label">Arrival Time</label>
+        <input type="datetime-local" id="arrival_time" name="arrival_time" class="form-input" required>
+      </div>
+
+      <!-- Runway Number -->
+      <div class="form-group">
+        <label for="runway_number" class="form-label">Runway Number</label>
+        <input type="number" id="runway_number" name="runway_number" class="form-input" required>
+      </div>
+
+      <!-- Gate Number -->
+      <div class="form-group">
+        <label for="gate_number" class="form-label">Gate Number</label>
+        <input type="number" id="gate_number" name="gate_number" class="form-input" required>
       </div>
 
       <!-- Submit Button -->
       <button type="submit" class="submit-btn">Add Flight</button>
     </form>
 
-    <!-- Back to Dashboard -->
+    <!-- Success/Error Message -->
+    {% if success %}
+      <div class="message-box success">{{ success }}</div>
+    {% elif error %}
+      <div class="message-box error">{{ error }}</div>
+    {% endif %}
+
     <a href="/admin_landing_page" class="back-link">Back to Dashboard</a>
   </div>
 </body>

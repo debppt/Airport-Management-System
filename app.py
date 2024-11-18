@@ -3,6 +3,7 @@ import mysql.connector
 from flask_cors import CORS
 from mysql.connector import IntegrityError
 import re #for iata validation
+from datetime import datetime
 
 app = Flask(__name__, template_folder='.')
 CORS(app)
@@ -230,6 +231,82 @@ def add_airline():
 @app.route('/ADD_FLIGHT_DETAILS')
 def ADD_FLIGHT_DETAILS():
     return render_template('add_flight_details.html')
+
+@app.route('/add_flight', methods=['GET', 'POST'])
+def add_flight():
+    if request.method == 'POST':
+        # Retrieving the form data
+        flight_id = request.form['flight_number']  # Assuming this is the Flight ID, map this if necessary
+        airline_name = request.form['airline']
+        city = request.form['city']
+        flight_status = request.form['flight_status']
+        departure_time = request.form['departure_time']
+        arrival_time = request.form['arrival_time']
+        runway_number = request.form['runway_number']
+        gate_number = request.form['gate_number']
+
+        # Connect to the database
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        try:
+            # Get AL_ID from airline
+            cursor.execute("SELECT Airline_id FROM airline WHERE Airline_name = %s", (airline_name,))
+            airline_result = cursor.fetchone()
+            if not airline_result:
+                raise ValueError(f"Airline '{airline_name}' not found")
+            al_id = airline_result['Airline_id']
+
+            # Get AP_ID from airport
+            cursor.execute("SELECT Airport_id FROM airport WHERE City = %s", (city,))
+            airport_result = cursor.fetchone()
+            if not airport_result:
+                raise ValueError(f"Airport in city '{city}' not found")
+            ap_id = airport_result['Airport_id']
+
+            # Get Runway ID
+            cursor.execute("SELECT Runway_No FROM runway WHERE Runway_No = %s", (runway_number,))
+            runway_result = cursor.fetchone()
+            if not runway_result:
+                raise ValueError(f"Runway '{runway_number}' not found")
+            runway_n = runway_result['Runway_No']
+
+            # Get Gate ID
+            cursor.execute("SELECT Gate_No FROM gate WHERE Gate_No = %s", (gate_number,))
+            gate_result = cursor.fetchone()
+            if not gate_result:
+                raise ValueError(f"Gate '{gate_number}' not found")
+            gate_n = gate_result['Gate_No']
+
+            # Calculate wait duration (difference between arrival and departure times)
+            # Convert the datetime strings to datetime objects first
+            departure_datetime = datetime.strptime(departure_time, "%Y-%m-%dT%H:%M")
+            arrival_datetime = datetime.strptime(arrival_time, "%Y-%m-%dT%H:%M")
+            wait_duration = arrival_datetime - departure_datetime
+
+            # Insert flight details into flight table
+            query = """
+            INSERT INTO flight (Flight_id, Arrival_time, Departure_time, Status, Wait_Duration, AP_ID, AL_ID, Runway_N, Gate_N)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(query, (flight_id, arrival_time, departure_time, flight_status, wait_duration, ap_id, al_id, runway_n, gate_n))
+            conn.commit()  # Commit the transaction
+
+            # Success message
+            success_message = "Flight details added successfully!"
+            return render_template('add_flight_details.html', success=success_message)
+
+        except Exception as e:
+            # Error handling
+            conn.rollback()  # Rollback in case of an error
+            error_message = f"An error occurred: {str(e)}"
+            return render_template('add_flight_details.html', error=error_message)
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    return render_template('add_flight_details.html')  # If GET request, just show the form
 
 @app.route('/view_employees')
 def view_employees():
