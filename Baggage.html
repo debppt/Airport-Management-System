@@ -91,29 +91,32 @@
   </style>
 </head>
 <body>
+
   <div class="container">
     <!-- Title -->
     <div class="title">Baggage and Passenger Status</div>
 
-    <!-- Form -->
-    <form id="status-form">
-      <!-- Baggage ID Section -->
-      <div class="section">Baggage ID:</div>
-      <input type="text" id="baggage-id" class="input-field" placeholder="Enter Baggage ID" required>
+    <!-- View Baggage Status Form -->
+<form action="/view_baggage_status_action" method="POST" id="status-form">
 
-      <!-- Passenger ID Section -->
-      <div class="section">Passenger ID:</div>
-      <input type="text" id="passenger-id" class="input-field" placeholder="Enter Passenger ID" required>
+  <!-- Baggage ID Section -->
+  <!-- <div class="section">Baggage ID:</div>
+  <input type="text" id="baggage-id" name="baggage-id" class="input-field" placeholder="Enter Baggage ID" required> -->
 
-      <!-- Check Status Button -->
-      <button type="submit" class="button">Check Status</button>
-    </form>
+  <!-- Passenger ID Section -->
+  <div class="section">Passenger ID:</div>
+  <input type="text" id="passenger-id" name="passenger-id" class="input-field" placeholder="Enter Passenger ID" required>
 
-    <!-- Output Section -->
-    <div id="status-output" class="output-section"></div>
-  </div>
+  <!-- Check Status Button -->
+  <button type="submit" class="button">Check Status</button>
+</form>
 
-  <script>
+
+    <!-- Output Section
+    <div id="status-output" class="output-section"></div>-->
+  </div> 
+
+  <!-- <script>
     // Handle form submission
     document.getElementById('status-form').addEventListener('submit', function(event) {
       event.preventDefault();  // Prevent page refresh on form submit
@@ -134,6 +137,6 @@
         statusOutput.textContent = 'Please enter both Baggage ID and Passenger ID.';
       }
     });
-  </script>
+  </script> -->
 </body>
 </html>

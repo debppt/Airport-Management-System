@@ -1,43 +1,39 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Passenger Registration</title>
   <style>
-    /* General Body Styling */
     body {
       margin: 0;
       padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* Full viewport height */
-      background-color: #f5f5f5; /* Light gray background */
+      min-height: 100vh;
+      background-color: #f5f5f5;
       font-family: 'Inter', sans-serif;
     }
 
-    /* Centered Form Container */
     .form-container {
       width: 90%;
       max-width: 800px;
-      background: #ffffff; /* White background */
-      border-radius: 16px; /* Rounded corners */
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
       padding: 40px;
       text-align: left;
     }
 
-    /* Form Title */
     .form-title {
-      font-size: 36px; /* Title size */
+      font-size: 36px;
       font-weight: 600;
-      color: #333333; /* Darker text */
+      color: #333333;
       text-align: center;
       margin-bottom: 30px;
     }
 
-    /* Form Label */
     .form-label {
       font-size: 20px;
       font-weight: 500;
@@ -46,7 +42,6 @@
       display: block;
     }
 
-    /* Input Fields */
     .form-input {
       width: 100%;
       height: 40px;
@@ -58,28 +53,25 @@
       box-sizing: border-box;
     }
 
-    /* Buttons */
     .form-button {
       width: 100%;
       height: 50px;
       font-size: 20px;
       font-weight: 500;
       color: #ffffff;
-      background: #007BFF; /* Primary blue color */
+      background: #007BFF;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Slight elevation */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
-      margin-bottom: 20px;
     }
 
     .form-button:hover {
-      background: #0056b3; /* Darker blue on hover */
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); /* More elevation */
+      background: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
 
-    /* Output Section */
     .output-section {
       font-size: 20px;
       font-weight: 500;
@@ -87,60 +79,239 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    .passenger-id {
+      font-size: 28px;
+      font-weight: bold;
+      color: #007BFF;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <!-- Form Title -->
     <div class="form-title">Passenger Registration</div>
 
-    <!-- Registration Form -->
-    <form>
-      <!-- First Name -->
+    <form action="/register_passenger" method="POST">
       <label for="first-name" class="form-label">First Name:</label>
-      <input type="text" id="first-name" class="form-input" placeholder="Enter your first name" required>
+      <input type="text" id="first-name" name="first_name" class="form-input" placeholder="Enter your first name" required>
 
-      <!-- Last Name -->
       <label for="last-name" class="form-label">Last Name:</label>
-      <input type="text" id="last-name" class="form-input" placeholder="Enter your last name" required>
+      <input type="text" id="last-name" name="last_name" class="form-input" placeholder="Enter your last name" required>
 
-      <!-- Passport Number -->
       <label for="passport-number" class="form-label">Passport Number:</label>
-      <input type="text" id="passport-number" class="form-input" placeholder="Enter your passport number" required>
+      <input type="text" id="passport-number" name="passport_number" class="form-input" placeholder="Enter your passport number" required>
 
-      <!-- Gender -->
       <label for="gender" class="form-label">Gender:</label>
-      <select id="gender" class="form-input" required>
+      <select id="gender" name="gender" class="form-input" required>
         <option value="" disabled selected>Select your gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="other">Other</option>
       </select>
 
-      <!-- Nationality -->
       <label for="nationality" class="form-label">Nationality:</label>
-      <input type="text" id="nationality" class="form-input" placeholder="Enter your nationality" required>
+      <input type="text" id="nationality" name="nationality" class="form-input" placeholder="Enter your nationality" required>
 
-      <!-- Phone Number -->
       <label for="phone-number" class="form-label">Phone Number:</label>
-      <input type="tel" id="phone-number" class="form-input" placeholder="Enter your phone number" required>
+      <input type="tel" id="phone-number" name="phone_number" class="form-input" placeholder="Enter your phone number" required>
 
-      <!-- Generate Passenger ID -->
-      <button type="button" class="form-button" id="generate-id">Generate Passenger ID</button>
-
-      <!-- Display Passenger ID -->
-      <div class="output-section" id="passenger-id-display">Your Passenger ID will appear here.</div>
-
-      <!-- Sign In -->
-      <a href="pass_sign_in.html" class="form-button">Sign In</a>
+      <button type="submit" class="form-button">Register and Generate ID</button>
     </form>
-  </div>
 
-  <script>
-    document.getElementById('generate-id').addEventListener('click', function() {
-      const passengerId = `ID-${Math.floor(100000 + Math.random() * 900000)}`;
-      document.getElementById('passenger-id-display').textContent = `Your Passenger ID: ${passengerId}`;
-    });
-  </script>
+    {% if error_message %}
+      <div style="color: red; margin-bottom: 20px; font-weight: bold;">
+        {{ error_message }}
+      </div>
+    {% endif %}
+
+    {% if passenger_id %}
+      <div class="output-section">
+        Registration Successful! Your Passenger ID:
+        <div class="passenger-id">{{ passenger_id }}</div>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passenger Registration</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-container {
+      width: 90%;
+      max-width: 800px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: left;
+    }
+
+    .form-title {
+      font-size: 36px;
+      font-weight: 600;
+      color: #333333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-label {
+      font-size: 20px;
+      font-weight: 500;
+      color: #333333;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+      padding: 8px 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .form-button {
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      background: #007BFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .form-button:hover {
+      background: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .output-section {
+      font-size: 20px;
+      font-weight: 500;
+      color: #333333;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .passenger-id {
+      font-size: 28px;
+      font-weight: bold;
+      color: #007BFF;
+      margin-top: 10px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .nav-button {
+      width: 48%;
+      height: 50px;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      background: #28a745;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 50px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-button:hover {
+      background: #218838;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-button.back {
+      background: #6c757d;
+    }
+
+    .nav-button.back:hover {
+      background: #5a6268;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-title">Passenger Registration</div>
+
+    <!-- Registration Form -->
+    <form action="/register_passenger" method="POST">
+      <label for="first-name" class="form-label">First Name:</label>
+      <input type="text" id="first-name" name="first_name" class="form-input" placeholder="Enter your first name" required>
+
+      <label for="last-name" class="form-label">Last Name:</label>
+      <input type="text" id="last-name" name="last_name" class="form-input" placeholder="Enter your last name" required>
+
+      <label for="passport-number" class="form-label">Passport Number:</label>
+      <input type="text" id="passport-number" name="passport_number" class="form-input" placeholder="Enter your passport number" required>
+
+      <label for="gender" class="form-label">Gender:</label>
+      <select id="gender" name="gender" class="form-input" required>
+        <option value="" disabled selected>Select your gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="nationality" class="form-label">Nationality:</label>
+      <input type="text" id="nationality" name="nationality" class="form-input" placeholder="Enter your nationality" required>
+
+      <label for="phone-number" class="form-label">Phone Number:</label>
+      <input type="tel" id="phone-number" name="phone_number" class="form-input" placeholder="Enter your phone number" required>
+
+      <button type="submit" class="form-button">Register and Generate ID</button>
+    </form>
+
+    {% if error_message %}
+      <div style="color: red; margin-bottom: 20px; font-weight: bold;">
+        {{ error_message }}
+      </div>
+    {% endif %}
+    
+    <!-- Display Passenger ID -->
+    {% if passenger_id %}
+      <div class="output-section">
+        Registration Successful! Your Passenger ID:
+        <div class="passenger-id">{{ passenger_id }}</div>
+      </div>
+    {% endif %}
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <a href="/sign_in_after_sign_up" class="nav-button">Sign In</a>
+      <a href="/" class="nav-button back">Back to Home</a>
+    </div>
+  </div>
 </body>
 </html>

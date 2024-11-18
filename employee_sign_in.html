@@ -54,7 +54,6 @@
             border-radius: 5px;
             outline: none;
             transition: border-color 0.3s ease;
-            text-decoration: none; /* Remove underline */
         }
 
         .input-field:focus {
@@ -65,40 +64,39 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 8px;
+            padding: 12px;
             font-size: 18px;
             width: 100%;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s ease;
-            margin-top:20px;
         }
 
         .login-button:hover {
             background-color: #45a049;
         }
 
-        .footer-text {
+        .error-message {
+            color: red;
             margin-top: 20px;
-            font-size: 14px;
-            color: #888;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Sign In</div>
-        <div class="input-label">Username:</div>
-        <input type="text" class="input-field" placeholder="Enter your username">
+        <form method="POST" action="/check_employee_id">
+            <label class="input-label" for="employee_id">Employee ID:</label>
+            <input type="number" name="employee_id" id="employee_id" class="input-field" placeholder="Enter your employee ID" required>
 
-        <div class="input-label">Employee ID:</div>
-        <input type="text" class="input-field" placeholder="Enter your employee ID">
+            <button type="submit" class="login-button">Login</button>
+        </form>
 
-        <a href="employee_dashboard.html" class="login-button">Login</a>
-
-        <!-- <div class="footer-text">
-            <p>Forgot your password? <a href="#">Click here</a></p>
-        </div> -->
+        <!-- Error message if exists -->
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
     </div>
 </body>
 </html>

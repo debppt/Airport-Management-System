@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Baggage Status - Amravati Airport</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .baggage-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .baggage-table th, .baggage-table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    .baggage-table th {
+      background-color: #f2f2f2;
+    }
+    .button {
+      display: inline-block;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="title">Check Baggage Status</div>
+
+    {% if baggage %}
+    <table class="baggage-table">
+      <thead>
+        <tr>
+          <th>Passenger ID</th>
+          <th>Baggage number</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bag in baggage %}
+        <tr>
+          <td>{{ bag.P_id }}</td>
+          <td>{{ bag.Baggage_No }}</td>
+          <td>{{ bag.Status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No baggage found for this Passenger ID.</p>
+    {% endif %}
+
+    <a href="/" class="button">Back to Home</a>
+  </div>
+
+</body>
+</html>
