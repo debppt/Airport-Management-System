@@ -60,6 +60,19 @@
       color: #007BFF;
       font-size: 18px;
     }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      font-size: 16px;
+      color: #007BFF;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -85,7 +98,7 @@
         {% endfor %}
       </tbody>
     </table>
-    <a href="/">Back to Dashboard</a>
+    <a href="/admin_landing_page" class="back-link">Back to Dashboard</a>
   </div>
 </body>
 </html>
