@@ -93,6 +93,15 @@
       background: #0056b3;
       box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
+
+    .add-contact-button {
+      background: #28a745;
+    }
+
+    .add-contact-button:hover {
+      background: #218838;
+    }
+
     .back-link {
       display: block;
       margin-top: 20px;
@@ -142,6 +151,13 @@
       <label for="runway-number" class="form-label">Runway Number:</label>
       <input type="text" id="runway-number" name="runway_number" class="form-input" placeholder="Enter runway number">
 
+      <!-- Phone Numbers -->
+      <label for="phone-number" class="form-label">Phone Numbers:</label>
+      <div id="phone-numbers-container">
+        <input type="tel" name="phone_number" class="form-input" placeholder="Enter phone number" required>
+      </div>
+      <button type="button" id="add-phone-number" class="form-button add-contact-button">Add Another Phone Number</button>
+
       <!-- Submit Button --> 
       <button type="submit" class="form-button">Add Employee</button>
     </form>
@@ -149,6 +165,17 @@
   </div>
 
   <script>
+    // Dynamic addition of phone number fields
+    document.getElementById('add-phone-number').addEventListener('click', function () {
+      const container = document.getElementById('phone-numbers-container');
+      const input = document.createElement('input');
+      input.type = 'tel';
+      input.name = 'phone_number';
+      input.className = 'form-input';
+      input.placeholder = 'Enter another phone number';
+      container.appendChild(input);
+    });
+
     // Form Validation Script
     document.getElementById('employee-form').addEventListener('submit', function(event) {
       const gateNumber = document.getElementById('gate-number').value.trim();
