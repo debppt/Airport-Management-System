@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In | YourBrand</title>
+    <title>Sign In | Amravati Airport</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <style>
         /* Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -61,33 +69,41 @@
             margin: 10px 0;
             font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 6px;
+            border-radius: 8px;
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .input-field:focus {
-            border-color: #2575fc;
-            box-shadow: 0 0 8px rgba(37, 117, 252, 0.2);
+            border-color: #6a11cb;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.2);
         }
 
         .login-button {
-            background: #2575fc;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
             color: white;
             border: none;
             padding: 12px;
             font-size: 18px;
             width: 100%;
             cursor: pointer;
-            border-radius: 6px;
-            transition: background 0.3s ease, transform 0.2s;
-            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s, box-shadow 0.3s ease;
             margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .login-button:hover {
-            background: #1a5fc9;
+            background: linear-gradient(90deg, #5a0fb3, #1e65d1);
             transform: translateY(-2px);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-button i {
+            font-size: 20px;
         }
 
         .footer-text {
@@ -132,15 +148,19 @@
                 font-size: 16px;
                 padding: 10px;
             }
+
+            .icon {
+                font-size: 40px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon" aria-hidden="true">🔒</div>
+        <div class="icon" aria-hidden="true"><i class="fas fa-lock"></i></div>
         <div class="title">Sign In to Your Account</div>
 
-        <form action="/admin_landing_page" >
+        <form action="/admin_landing_page">
             <label for="username" class="input-label">Username:</label>
             <input 
                 type="text" 
@@ -163,8 +183,11 @@
                 required 
             >
 
-            <button type="submit" class="login-button">Login</button>
+            <button type="submit" class="login-button">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
         </form>
+
     </div>
 </body>
 </html>

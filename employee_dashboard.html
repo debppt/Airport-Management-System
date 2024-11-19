@@ -9,54 +9,90 @@
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(135deg, #981ffc, #246dfd); /* Single gradient applied here */
+      color: #333;
+      min-height: 100vh;
     }
+
     .container {
       width: 90%;
-      max-width: 800px;
+      max-width: 900px;
       margin: 50px auto;
-      background-color: white;
-      border-radius: 16px;
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
       padding: 40px;
       text-align: center;
+      animation: fadeIn 1s ease-in-out;
     }
+
     .title {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 600;
-      color: #333;
       margin-bottom: 30px;
+      color: #444;
+      text-transform: uppercase;
     }
+
     .employee-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
+
     .employee-table th, .employee-table td {
-      padding: 12px;
+      padding: 14px;
       text-align: left;
       border: 1px solid #ddd;
+      font-size: 16px;
     }
+
     .employee-table th {
-      background-color: #f2f2f2;
+      background-color: #f4f4f4;
+      font-weight: bold;
     }
+
+    .employee-table tr:hover {
+      background-color: #f9f9f9; /* Hover effect for rows */
+    }
+
     .button {
       display: inline-block;
       padding: 15px;
       font-size: 20px;
       font-weight: 600;
-      background-color: #007BFF;
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple Gradient */
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
+      margin-top: 20px;
     }
+
     .button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(135deg, #5e047e, #1f26df); /* Hover effect for button */
       box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
+
+    .message {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    /* Animation for fade-in effect */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
   </style>
 </head>
 <body>

@@ -3,71 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delete Employee - Amravati Airport</title>
+  <title>Delete Employee</title>
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+      margin: 0;
+      padding: 0;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
+
     .header {
-      background-color: #007BFF;
+      text-align: left;
+      font-size: 36px;
+      font-weight: 700;
       color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 32px;
+      margin-bottom: 40px;
+      margin-left: 10%; /* Adjusted to move it a little to the left */
     }
+
     .form-container {
-      max-width: 500px;
-      margin: 50px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
     }
+
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
+
     .form-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
       display: block;
-      font-weight: bold;
+      text-align: left;
     }
+
     .form-input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .form-input:focus {
+      border-color: #2575fc;
+      box-shadow: 0 0 10px rgba(37, 117, 252, 0.4);
+      outline: none;
+    }
+
     .submit-btn {
       width: 100%;
-      padding: 12px;
-      background-color: #007BFF;
+      padding: 14px;
+      background: linear-gradient(135deg, #9b4dca, #6f42c1); /* More purple gradient */
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 18px;
       cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
+
     .submit-btn:hover {
-      background-color: #0056b3;
+      background: linear-gradient(135deg, #6f42c1, #9b4dca); /* Reverse the gradient for hover effect */
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
+
     .back-link {
       display: block;
       margin-top: 20px;
-      text-align: center;
       text-decoration: none;
+      color: #2575fc;
       font-size: 16px;
-      color: #007BFF;
+      font-weight: 500;
       transition: color 0.3s ease;
     }
 
     .back-link:hover {
       color: #0056b3;
     }
+
+    .message {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .message.success {
+      color: green;
+    }
+
+    .message.error {
+      color: red;
+    }
+
+    /* Animation for fade-in effect */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
   </style>
 </head>
 <body>
-  <div class="header">Delete Employee - Amravati Airport</div>
+
+ 
+
+  <!-- Form Container -->
   <div class="form-container">
     <form method="POST">
       <div class="form-group">
@@ -76,12 +138,17 @@
       </div>
       <button type="submit" class="submit-btn">Delete Employee</button>
     </form>
+
+    <!-- Display Messages -->
     {% if error %}
-      <p style="color: red;">{{ error }}</p>
+      <p class="message error">{{ error }}</p>
     {% elif success %}
-      <p style="color: green;">{{ success }}</p>
+      <p class="message success">{{ success }}</p>
     {% endif %}
+
+    <!-- Back Link -->
     <a href="/admin_landing_page" class="back-link">Back to Dashboard</a>
   </div>
+
 </body>
 </html>

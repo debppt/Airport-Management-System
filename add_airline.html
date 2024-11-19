@@ -10,30 +10,34 @@
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #f5f5f5;
+      background: linear-gradient(to bottom, #6a11cb, #2575fc);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      color: #333;
     }
 
+    /* Form Container */
     .form-container {
       width: 90%;
       max-width: 600px;
       background: #ffffff;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.2s ease-out;
     }
 
     .form-header {
       text-align: center;
       font-size: 24px;
-      font-weight: 600;
-      color: #333;
+      font-weight: 700;
+      color: #004085;
       margin-bottom: 20px;
     }
 
+    /* Form Group */
     .form-group {
       margin-bottom: 20px;
     }
@@ -48,35 +52,39 @@
 
     .form-input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 8px;
       outline: none;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .form-input:focus {
-      border-color: #007BFF;
+      border-color: #6a11cb;
+      box-shadow: 0 0 8px rgba(106, 17, 203, 0.2);
     }
 
+    /* Button Styling */
     .submit-btn {
       width: 100%;
       padding: 12px;
       font-size: 18px;
       font-weight: 600;
       color: #ffffff;
-      background-color: #007BFF;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .submit-btn:hover {
-      background-color: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
     }
 
+    /* Messages */
     .message {
       margin-top: 20px;
       text-align: center;
@@ -90,25 +98,39 @@
     .error {
       color: red;
     }
+
+    /* Back Link */
     .back-link {
       display: block;
       margin-top: 20px;
       text-align: center;
-      text-decoration: none;
       font-size: 16px;
-      color: #007BFF;
+      color: #6a11cb;
+      text-decoration: none;
       transition: color 0.3s ease;
     }
 
     .back-link:hover {
-      color: #0056b3;
+      color: #2575fc;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
   <div class="form-container">
     <div class="form-header">Add Airline</div>
-    
+
     <!-- Display Success or Error Messages -->
     {% if success %}
     <div class="message success">{{ success }}</div>

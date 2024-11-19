@@ -7,119 +7,120 @@
   <title>Admin Dashboard - Amravati Airport</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* General Styles */
-    body {
+    /* General Reset */
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #007BFF, #0056b3);
-      color: #fff;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #333;
+      background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
+      overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Navigation Bar */
+    /* Navbar Styling */
     .navbar {
-      width: 100%;
-      background-color: #333;
-      padding: 15px 0;
-      text-align: center;
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 100;
+      width: 100%;
+      background: #004085;
+      color: white;
+      z-index: 1000;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .navbar a {
-      color: #fff;
-      font-size: 1.2rem;
-      margin: 0 15px;
+      color: white;
       text-decoration: none;
+      font-size: 1rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
       font-weight: 600;
       transition: color 0.3s ease;
     }
 
     .navbar a:hover {
-      color: #007BFF;
+      color: #ffdd57;
     }
 
-    /* Header */
+    /* Header Section */
     .header {
       text-align: center;
-      font-size: 2.5rem;
-      font-weight: 600;
-      padding: 80px 20px 40px;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      font-size: 3rem;
+      font-weight: 700;
+      margin-top: 80px;
+      padding: 40px 20px;
       color: white;
-      text-transform: uppercase;
+      background: linear-gradient(135deg, #004085, #6a11cb);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.2s ease-out;
     }
 
-    /* Dashboard Layout */
+    .header:hover {
+      text-shadow: 0 0 10px #004085, 0 0 20px #6a11cb;
+    }
+
+    /* Dashboard Cards */
     .admin-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      margin-top: 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
       width: 100%;
-      max-width: 1000px;
+      max-width: 1200px;
+      padding: 60px 20px;
     }
 
     .option-card {
-      background: #ffffff;
-      color: #333;
-      border-radius: 12px;
+      background: white;
       text-align: center;
-      padding: 30px 20px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      width: 100%;
-      max-width: 350px;
-      margin-bottom: 20px;
+      color: #333;
     }
 
     .option-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     }
 
     .option-icon {
       font-size: 3rem;
-      color: #007BFF;
+      color: #004085;
       margin-bottom: 15px;
-      transition: color 0.3s ease;
     }
 
-    .option-icon:hover {
-      color: #0056b3;
+    .option-card:hover .option-icon {
+      color: #6a11cb;
     }
 
     .option-text {
       font-size: 1.25rem;
       font-weight: 600;
-      color: #333;
     }
 
-    /* Hover effects for text */
-    .option-card:hover .option-text {
-      color: #007BFF;
-    }
-
-    /* Mobile Responsiveness */
+    /* Responsive Design */
     @media (max-width: 768px) {
       .header {
         font-size: 2rem;
@@ -127,30 +128,20 @@
       }
 
       .navbar {
-        padding: 10px 0;
-      }
-
-      .navbar a {
-        font-size: 1rem;
+        padding: 10px 20px;
       }
 
       .admin-container {
+        grid-template-columns: 1fr;
         padding: 20px;
       }
 
       .option-card {
-        padding: 25px 15px;
-        font-size: 1rem;
-        width: 90%;
-        max-width: 90%;
-      }
-
-      .option-icon {
-        font-size: 2.5rem;
+        width: 100%;
       }
     }
 
-    /* Animation for Fade In */
+    /* Keyframes */
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -162,49 +153,40 @@
         transform: translateY(0);
       }
     }
-
-    .admin-container {
-      animation: fadeIn 1s ease-out;
-    }
-
   </style>
 </head>
 
 <body>
 
   <!-- Navbar -->
-  <div class="navbar">
+  <nav class="navbar">
     <a href="/">Home</a>
     <a href="admin_landing_page.html">Dashboard</a>
     <a href="/login_as_admin">Logout</a>
-  </div>
+  </nav>
 
   <!-- Header -->
   <div class="header">
     Admin Dashboard - Amravati Airport
   </div>
 
-  <!-- Main Dashboard Content -->
+  <!-- Dashboard Options -->
   <div class="admin-container">
-    <!-- Add Airline -->
     <a href="/add_airline_page" class="option-card">
       <i class="fas fa-plane-departure option-icon"></i>
       <div class="option-text">Add Airline</div>
     </a>
 
-    <!-- Add Flight Details -->
     <a href="/ADD_FLIGHT_DETAILS" class="option-card">
       <i class="fas fa-plane option-icon"></i>
       <div class="option-text">Add Flight Details</div>
     </a>
 
-    <!-- View Employees -->
-    <a href="/view_employees"  class="option-card">
+    <a href="/view_employees" class="option-card">
       <i class="fas fa-users option-icon"></i>
       <div class="option-text">View Employees</div>
     </a>
 
-    <!-- View Reports -->
     <a href="/view_reports" class="option-card">
       <i class="fas fa-chart-line option-icon"></i>
       <div class="option-text">View Reports</div>

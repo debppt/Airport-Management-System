@@ -10,56 +10,58 @@
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
     }
 
     /* Main Container */
     .container {
       width: 90%;
       max-width: 600px;
-      margin: 100px auto; /* Center the form */
-      background-color: white;
+      background: white;
       border-radius: 16px;
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
       padding: 40px;
+      animation: fadeIn 0.8s ease-in-out;
       text-align: center;
     }
 
     /* Title */
     .title {
-      font-size: 32px;
-      font-weight: 600;
-      color: #333;
+      font-size: 36px;
+      font-weight: 700;
+      color: #0044cc;
       margin-bottom: 30px;
     }
 
     /* Label */
     .label {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 8px;
       display: block;
       text-align: left;
     }
 
     /* Input Field */
-    .input-field {
+    .input-field, .dropdown {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 20px;
-      font-size: 18px;
+      font-size: 16px;
       border-radius: 8px;
       border: 1px solid #ccc;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Dropdown */
-    .dropdown {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      font-size: 18px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+    .input-field:focus, .dropdown:focus {
+      border-color: #6a11cb;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Button */
@@ -67,40 +69,57 @@
       display: inline-block;
       width: 100%;
       padding: 15px;
-      font-size: 20px;
-      font-weight: 600;
-      background-color: #007BFF;
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Button gradient */
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .button:hover {
-      background-color: #0056b3; /* Darker blue */
+      background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient */
       box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
 
     /* Success and Error Messages */
     .message {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       margin-top: 20px;
+      padding: 10px 15px;
+      border-radius: 8px;
     }
 
     .success {
-      color: green;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
     }
 
     .error {
-      color: red;
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-
   <!-- Main Form Container -->
   <div class="container">
     <!-- Title -->
@@ -110,7 +129,13 @@
     <form action="/update_gate_runway" method="POST">
       <!-- Employee ID Field -->
       <label for="employee-id" class="label">Employee ID:</label>
-      <input type="text" id="employee-id" name="employee-id" class="input-field" placeholder="Enter Employee ID" required>
+      <input 
+        type="text" 
+        id="employee-id" 
+        name="employee-id" 
+        class="input-field" 
+        placeholder="Enter Employee ID" 
+        required>
 
       <!-- Dropdown for selecting Gate or Runway -->
       <label for="update-type" class="label">Select Update Type:</label>
@@ -122,7 +147,13 @@
 
       <!-- Input for Gate or Runway Number -->
       <label for="new-number" class="label">Enter New Gate/Runway Number:</label>
-      <input type="text" id="new-number" name="new-number" class="input-field" placeholder="Enter New Gate or Runway Number" required>
+      <input 
+        type="text" 
+        id="new-number" 
+        name="new-number" 
+        class="input-field" 
+        placeholder="Enter New Gate or Runway Number" 
+        required>
 
       <!-- Update Button -->
       <button type="submit" class="button">Update</button>
@@ -137,6 +168,5 @@
     <div class="message error">{{ error }}</div>
     {% endif %}
   </div>
-
 </body>
 </html>

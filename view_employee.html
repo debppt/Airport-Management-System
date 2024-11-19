@@ -4,62 +4,125 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Employee Management - Amravati Airport</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     /* Global Styles */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(to bottom right, #004aad, #6a11cb);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
     }
 
     /* Header Styling */
     .header {
+      width: 100%;
       background-color: #007BFF;
-      color: white;
+      color: #fff;
       padding: 20px;
       text-align: center;
-      font-size: 32px;
-      font-weight: bold;
+      font-size: 36px;
+      font-weight: 600;
+      text-transform: uppercase;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 60px auto;  /* Increased space after the header */
+      padding: 20px;
+      text-align: center;
     }
 
     /* Button Container */
     .button-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 buttons per row */
+      display: flex;
+      flex-direction: column;
       gap: 20px;
-      padding: 20px;
-      max-width: 1000px;
-      margin: 50px auto; /* Center the grid */
+      justify-items: center;
     }
 
-    /* Button Styling */
+    /* Button Card Styling */
     .button-card {
-      height: 150px;
-      background: white;
+      background: #fff;
       border-radius: 12px;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+      height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 20px;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none; /* Remove underline */
     }
 
     .button-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Icon Styling */
+    .button-icon {
+      font-size: 50px;
+      color: #007BFF;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .button-card:hover .button-icon {
+      transform: scale(1.1);
     }
 
     /* Button Text */
     .button-text {
-      font-size: 30px;
+      font-size: 20px;
       font-weight: 500;
-      color: #333;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header {
+        font-size: 28px;
+      }
+
+      .button-card {
+        height: 160px;
+      }
+
+      .button-icon {
+        font-size: 40px;
+      }
+
+      .button-text {
+        font-size: 18px;
+      }
+    }
+
+    /* Additional Mobile Padding */
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+
+      .button-card {
+        height: 140px;
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -67,29 +130,35 @@
   <!-- Header -->
   <div class="header">Employee Management - Amravati Airport</div>
 
-  <!-- Button Grid -->
-  <div class="button-container">
+  <!-- Main Content -->
+  <div class="container">
+    <div class="button-container">
 
-    <!-- View All Employees -->
-    <a href="/view_all_employees" class="button-card">
-      <div class="button-text">View All Employees</div>
-    </a>
+      <!-- View All Employees -->
+      <a href="/view_all_employees" class="button-card">
+        <div class="button-icon">👥</div>
+        <div class="button-text">View All Employees</div>
+      </a>
 
-    <!-- Delete an Employee -->
-    <a href="/delete_employee" class="button-card">
-      <div class="button-text">Delete an Employee</div>
-    </a>
+      <!-- Delete an Employee -->
+      <a href="/delete_employee" class="button-card">
+        <div class="button-icon">❌</div>
+        <div class="button-text">Delete an Employee</div>
+      </a>
 
-    <!-- Add an Employee -->
-    <a href="/add_employee" class="button-card">
-      <div class="button-text">Add an Employee</div>
-    </a>
+      <!-- Add an Employee -->
+      <a href="/add_employee" class="button-card">
+        <div class="button-icon">➕</div>
+        <div class="button-text">Add an Employee</div>
+      </a>
 
-    <!-- Update Gate and Runway Number -->
-    <a href="/update_g_r" class="button-card">
-      <div class="button-text">Update Gate & Runway Number</div>
-    </a>
-    
+      <!-- Update Gate and Runway -->
+      <a href="/update_gate_runway" class="button-card">
+        <div class="button-icon">✈️</div>
+        <div class="button-text">Update Gate & Runway</div>
+      </a>
+
+    </div>
   </div>
 </body>
 </html>

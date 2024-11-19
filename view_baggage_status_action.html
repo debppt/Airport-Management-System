@@ -5,57 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Check Baggage Status - Amravati Airport</title>
   <style>
+    /* Global Styles */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(to bottom right, #004aad, #6a11cb); /* Smooth gradient background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
     }
+
+    /* Container */
     .container {
-      width: 90%;
-      max-width: 800px;
-      margin: 50px auto;
+      width: 100%;
+      max-width: 850px;
       background-color: white;
       border-radius: 16px;
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.1);
       padding: 40px;
       text-align: center;
+      transition: box-shadow 0.3s ease;
     }
+
+    .container:hover {
+      box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Title */
     .title {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 600;
       color: #333;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
+
+    /* Table */
     .baggage-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
+
     .baggage-table th, .baggage-table td {
-      padding: 12px;
+      padding: 15px 20px;
       text-align: left;
       border: 1px solid #ddd;
+      font-size: 16px;
     }
+
     .baggage-table th {
-      background-color: #f2f2f2;
+      background: linear-gradient(to right, #004aad, #007bff);
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
     }
+
+    .baggage-table tr:nth-child(even) td {
+      background-color: #f7f7f7;
+    }
+
+    .baggage-table tr:hover td {
+      background-color: #e6f7ff;
+      transition: background-color 0.3s ease;
+    }
+
+    /* No Baggage Message */
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    /* Button */
     .button {
       display: inline-block;
-      padding: 15px;
+      padding: 15px 25px;
       font-size: 20px;
       font-weight: 600;
-      background-color: #007BFF;
+      background-color: #007bff;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 20px;
     }
+
     .button:hover {
       background-color: #0056b3;
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .title {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      .baggage-table th, .baggage-table td {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .button {
+        font-size: 18px;
+        padding: 12px 20px;
+      }
     }
   </style>
 </head>
@@ -69,7 +132,7 @@
       <thead>
         <tr>
           <th>Passenger ID</th>
-          <th>Baggage number</th>
+          <th>Baggage Number</th>
           <th>Status</th>
         </tr>
       </thead>

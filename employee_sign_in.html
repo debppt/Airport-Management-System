@@ -140,7 +140,7 @@
         <div class="icon" aria-hidden="true">🔒</div>
         <div class="title">Sign In to Your Account</div>
 
-            <form method="POST" action="/check_employee_id">
+            <form action="/check_employee_id" method="POST">
             <label for="username" class="input-label">Username:</label>
             <input 
                 type="text" 
@@ -152,14 +152,14 @@
                 required 
             >
 
-            <label for="password" class="input-label">Employee ID:</label>
+            <label for="employee_id" class="input-label">Employee ID:</label>
             <input 
-                type="password" 
-                id="password" 
-                name="password" 
+                type="text" 
+                id="employee_id" 
+                name="employee_id" 
                 class="input-field" 
                 placeholder="Enter your ID" 
-                aria-label="Password" 
+                aria-label="employee_id" 
                 required 
             >
 

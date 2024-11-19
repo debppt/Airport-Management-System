@@ -5,64 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Available Flights - Amravati Airport</title>
   <style>
+    /* Global Styles */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #f9f9f9;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #333;
     }
 
     .container {
       width: 90%;
-      max-width: 900px;
+      max-width: 1000px;
       margin: 50px auto;
       background: #ffffff;
       border-radius: 16px;
       box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
       padding: 30px;
-      text-align: center;
     }
 
     .title {
       font-size: 32px;
-      font-weight: 600;
+      font-weight: 700;
       color: #333;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .subtitle {
       font-size: 20px;
+      font-weight: 500;
       color: #555;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      text-align: center;
     }
 
     .error {
       color: red;
       font-size: 18px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     .success {
       color: green;
       font-size: 18px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      text-align: left;
     }
 
     th, td {
-      padding: 15px;
-      text-align: left;
-      border: 1px solid #ccc;
+      padding: 12px;
+      border: 1px solid #ddd;
     }
 
     th {
       background-color: #007BFF;
-      color: white;
+      color: #ffffff;
       font-weight: 600;
     }
 
@@ -70,39 +76,13 @@
       background-color: #f9f9f9;
     }
 
-    .button {
-      display: inline-block;
-      width: auto;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: 600;
-      background-color: #007BFF;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      border: none;
-      cursor: pointer;
+    tr:hover {
+      background-color: #eef6ff;
+      transition: background-color 0.3s ease;
     }
 
-    .button:hover {
-      background-color: #0056b3;
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    input[type="text"] {
-      width: calc(100% - 24px);
-      padding: 10px;
-      margin-bottom: 20px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    input[type="text"]:focus {
-      border-color: #007BFF;
-      outline: none;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    .form-section {
+      margin-top: 30px;
     }
 
     label {
@@ -110,12 +90,73 @@
       font-weight: 500;
       margin-bottom: 8px;
       display: block;
-      text-align: left;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007BFF;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      background: linear-gradient(90deg, #007BFF, #0056b3);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: linear-gradient(90deg, #0056b3, #004494);
+      transform: translateY(-2px);
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .title {
+        font-size: 28px;
+      }
+
+      table {
+        font-size: 14px;
+      }
+
+      .form-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Title -->
     <div class="title">Available Flights</div>
 
     <!-- Subtitle -->
@@ -130,7 +171,7 @@
     <div class="error">{{ error }}</div>
     {% endif %}
 
-    <!-- Flight Table -->
+    <!-- Flights Table -->
     {% if flights %}
     <table>
       <thead>
@@ -154,23 +195,27 @@
     </table>
     {% endif %}
 
-    <!-- Book Ticket Form -->
-    <form action="/book_tickets" method="POST">
+    <!-- Ticket Booking Section -->
+    <div class="form-section">
       <div class="subtitle">Book Your Ticket</div>
-      <label for="passenger-id">Passenger ID:</label>
-      <input type="text" id="passenger-id" name="passenger-id" required>
-      <label for="flight-instance-id">Flight Instance ID:</label>
-      <input type="text" id="flight-instance-id" name="flight-instance-id" required>
-      <button type="submit" class="button">Book Ticket</button>
-    </form>
+      <form action="/book_tickets" method="POST">
+        <label for="passenger-id">Passenger ID:</label>
+        <input type="text" id="passenger-id" name="passenger-id" placeholder="Enter Passenger ID" required>
+        
+        <label for="flight-instance-id">Flight Instance ID:</label>
+        <input type="text" id="flight-instance-id" name="flight-instance-id" placeholder="Enter Flight Instance ID" required>
+        
+        <div class="form-buttons">
+          <button type="submit" class="button">Book Ticket</button>
+          <a href="/" class="button">Back to Dashboard</a>
+        </div>
+      </form>
+    </div>
 
     <!-- Success Message -->
     {% if success %}
     <div class="success">{{ success }}</div>
     {% endif %}
-
-    <!-- Back to Dashboard Button -->
-    <a href="/" class="button">Back to Dashboard</a>
   </div>
 </body>
 </html>
