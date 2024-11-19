@@ -44,13 +44,13 @@ def login_as_admin():
 def login_as_employee():
     return render_template('employee_sign_in.html')
 
-@app.route('/sign_up_pass')
-def sign_up_pass():
-    return render_template('pass_sign_up.html')
-
 @app.route('/sign_up_employee')
 def sign_up_employee():
     return render_template('employee_sign_up.html')
+
+@app.route('/sign_up_pass')
+def sign_up_pass():
+    return render_template('pass_sign_up.html')
 
 @app.route('/sign_in_after_sign_up')
 def sign_in_after_sign_up():
@@ -110,12 +110,13 @@ def register_passenger():
         gender = request.form['gender']
         nationality = request.form['nationality']
         passport_number = request.form['passport_number']
-        phone_number = request.form['phone_number']
+        phone_numbers = request.form.getlist('phone_number')  # Get multiple phone numbers as a list
 
         conn = get_db_connection()
         cursor = conn.cursor()
 
         try:
+            # Insert passenger details
             query = """
             INSERT INTO passenger (F_Name, L_Name, Gender, Nationality, Passport_No)
             VALUES (%s, %s, %s, %s, %s)
@@ -123,14 +124,18 @@ def register_passenger():
             cursor.execute(query, (first_name, last_name, gender, nationality, passport_number))
             conn.commit()
 
+            # Get the auto-generated passenger ID
             passenger_id = cursor.lastrowid
 
+            # Insert each contact into the passenger-contacts table
             phone_query = """
             INSERT INTO `passenger-contacts` (Passenger_id, Contact)
             VALUES (%s, %s)
             """
-            cursor.execute(phone_query, (passenger_id, phone_number))
+            for phone_number in phone_numbers:
+                cursor.execute(phone_query, (passenger_id, phone_number))
             conn.commit()
+
         except IntegrityError as e:
             conn.rollback()
             if "Duplicate entry" in str(e):
@@ -369,6 +374,7 @@ def add_employee():
         salary = request.form['salary']
         gate_number = request.form['gate_number']
         runway_number = request.form['runway_number']
+        phone_numbers = request.form.getlist('phone_number')  # Get multiple phone numbers as a list
 
         # Validate inputs to adhere to the check constraint
         if gate_number and runway_number:
@@ -382,37 +388,49 @@ def add_employee():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Validate Gate Number or Runway Number exists
-        if gate_number:
-            cursor.execute("SELECT * FROM gate WHERE Gate_No = %s", (gate_number,))
-            gate = cursor.fetchone()
-            if not gate:
-                error = "Invalid Gate Number."
-                cursor.close()
-                conn.close()
-                return render_template('add_employee.html', error=error)
-            runway_number = None  # Ensure runway is NULL if gate is provided
-        elif runway_number:
-            cursor.execute("SELECT * FROM runway WHERE Runway_No = %s", (runway_number,))
-            runway = cursor.fetchone()
-            if not runway:
-                error = "Invalid Runway Number."
-                cursor.close()
-                conn.close()
-                return render_template('add_employee.html', error=error)
-            gate_number = None  # Ensure gate is NULL if runway is provided
-
-        # Insert the employee data into the 'employee' table
         try:
+            # Validate Gate or Runway
+            if gate_number:
+                cursor.execute("SELECT * FROM gate WHERE Gate_No = %s", (gate_number,))
+                if not cursor.fetchone():
+                    raise ValueError("Invalid Gate Number.")
+                runway_number = None  # Ensure runway is NULL if gate is provided
+            elif runway_number:
+                cursor.execute("SELECT * FROM runway WHERE Runway_No = %s", (runway_number,))
+                if not cursor.fetchone():
+                    raise ValueError("Invalid Runway Number.")
+                gate_number = None  # Ensure gate is NULL if runway is provided
+
+            # Insert employee data
             cursor.execute("""
                 INSERT INTO employee (F_Name, L_Name, Salary, G_No, R_No)
                 VALUES (%s, %s, %s, %s, %s)
             """, (first_name, last_name, salary, gate_number, runway_number))
             conn.commit()
+
+            # Get the generated Employee ID
+            employee_id = cursor.lastrowid
+
+            # Insert each contact into the employee-contacts table
+            contact_query = """
+            INSERT INTO `employee-contacts` (Employee_id, Contact)
+            VALUES (%s, %s)
+            """
+            for phone_number in phone_numbers:
+                cursor.execute(contact_query, (employee_id, phone_number))
+            conn.commit()
+
             success = "Employee added successfully."
             cursor.close()
             conn.close()
             return render_template('add_employee.html', success=success)
+
+        except ValueError as ve:
+            conn.rollback()
+            error = str(ve)
+            cursor.close()
+            conn.close()
+            return render_template('add_employee.html', error=error)
 
         except Exception as e:
             conn.rollback()
@@ -422,6 +440,7 @@ def add_employee():
             return render_template('add_employee.html', error=error)
 
     return render_template('add_employee.html')
+
 
 
 @app.route('/update_g_r')
