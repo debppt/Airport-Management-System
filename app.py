@@ -170,6 +170,10 @@ def view_tickets_form():
         FROM tickets
         WHERE Passenger_id = %s
         """
+
+        #In the query it should be Flight_instance_id instead of Flight_id
+        #add changes to mysql tables accordingly
+
         cursor.execute(query, (passenger_id,))
         tickets = cursor.fetchall()
         cursor.close()
