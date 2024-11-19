@@ -434,6 +434,48 @@ def update_g_r():
 def view_reports():
     return render_template('View_Report.html')
 
+@app.route('/top_employees')
+def top_employees():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT F_name, L_name, salary FROM employee ORDER BY salary DESC LIMIT 10")
+    employees = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('top_employees.html', employees=employees)
+
+@app.route('/top_airlines')
+def top_airlines():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("CALL GetTopAirlines()")  # Use `execute()` for SELECT-producing procedures
+        result = cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(f"Error: {e}")
+        result = []
+    finally:
+        cursor.close()
+        conn.close()
+    return render_template('top_airlines.html', airlines=result)
+
+
+@app.route('/top_passengers')
+def top_passengers():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("CALL GetTopPassengers()")  # Use execute for procedures with SELECT
+        result = cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(f"Error: {e}")
+        result = []
+    finally:
+        cursor.close()
+        conn.close()
+    return render_template('top_passengers.html', passengers=result)
+
+
 # =======================
 # Baggage Routes
 # =======================
