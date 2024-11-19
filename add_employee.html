@@ -93,6 +93,19 @@
       background: #0056b3;
       box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      color: #007BFF;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -129,9 +142,10 @@
       <label for="runway-number" class="form-label">Runway Number:</label>
       <input type="text" id="runway-number" name="runway_number" class="form-input" placeholder="Enter runway number">
 
-      <!-- Submit Button -->
+      <!-- Submit Button --> 
       <button type="submit" class="form-button">Add Employee</button>
     </form>
+    <a href="/admin_landing_page" class="back-link">Back to Dashboard</a>
   </div>
 
   <script>
