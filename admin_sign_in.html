@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In Page</title>
+    <title>Sign In | YourBrand</title>
     <style>
-        /* Basic reset */
+        /* Reset */
         * {
             margin: 0;
             padding: 0;
@@ -14,35 +14,45 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             color: #333;
+            padding: 20px;
         }
 
         .container {
-            width: 500px;
-            background-color: white;
+            width: 100%;
+            max-width: 400px;
+            background: white;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .icon {
+            font-size: 50px;
+            color: #2575fc;
+            margin-bottom: 20px;
         }
 
         .title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 600;
             margin-bottom: 20px;
             color: #333;
         }
 
         .input-label {
-            font-size: 18px;
+            font-size: 16px;
             color: #555;
             margin: 10px 0 5px;
             text-align: left;
+            display: block;
         }
 
         .input-field {
@@ -51,31 +61,33 @@
             margin: 10px 0;
             font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
             outline: none;
             transition: border-color 0.3s ease;
         }
 
         .input-field:focus {
-            border-color: #4CAF50;
+            border-color: #2575fc;
+            box-shadow: 0 0 8px rgba(37, 117, 252, 0.2);
         }
 
         .login-button {
-            background-color: #4CAF50;
+            background: #2575fc;
             color: white;
             border: none;
-            padding: 8px;
+            padding: 12px;
             font-size: 18px;
             width: 100%;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            margin-top: 20px; /* Added margin to move the button lower */
-            text-decoration: none; /* Remove underline */
+            border-radius: 6px;
+            transition: background 0.3s ease, transform 0.2s;
+            text-decoration: none;
+            margin-top: 20px;
         }
 
         .login-button:hover {
-            background-color: #45a049;
+            background: #1a5fc9;
+            transform: translateY(-2px);
         }
 
         .footer-text {
@@ -83,22 +95,76 @@
             font-size: 14px;
             color: #888;
         }
+
+        .footer-text a {
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .login-button {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Sign In</div>
-        <div class="input-label">Username:</div>
-        <input type="text" class="input-field" placeholder="Enter your username">
+        <div class="icon" aria-hidden="true">🔒</div>
+        <div class="title">Sign In to Your Account</div>
 
-        <div class="input-label">Password:</div>
-        <input type="password" class="input-field" placeholder="Enter your password">
+        <form action="/admin_landing_page" >
+            <label for="username" class="input-label">Username:</label>
+            <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                class="input-field" 
+                placeholder="Enter your username" 
+                aria-label="Username" 
+                required 
+            >
 
-        <a href="/admin_landing_page" class="login-button">Login</a>
+            <label for="password" class="input-label">Password:</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="input-field" 
+                placeholder="••••••••" 
+                aria-label="Password" 
+                required 
+            >
 
-        <!-- <div class="footer-text">
-            <p>Forgot your password? <a href="#">Click here</a></p>
-        </div> -->
+            <button type="submit" class="login-button">Login</button>
+        </form>
     </div>
 </body>
 </html>

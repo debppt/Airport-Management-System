@@ -4,91 +4,279 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amravati Airport</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Styles -->
   <style>
-    /* Body Styling */
-    body {
+    /* General Reset */
+    * {
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center; /* Vertically center the content */
-      width: 100vw;
-      height: 100vh; /* Full height of the viewport */
-      background-color: #f5f5f5; /* Light gray background for contrast */
-      font-family: 'Inter', sans-serif;
+      box-sizing: border-box;
+      scroll-behavior: smooth; /* Smooth scrolling */
     }
 
-    /* Centered Content */
-    .content-container {
-      width: 90%;
-      max-width: 1200px;
-      background: #ffffff; /* White background */
-      border-radius: 16px; /* Rounded corners */
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-      padding: 40px 20px;
+    /* Body Styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #333;
+      background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
+      overflow-x: hidden;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #004085;
+      color: white;
+      z-index: 1000;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-links a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1920x1080/?airport,travel') center/cover no-repeat;
+      color: white;
       text-align: center;
     }
 
-    /* Welcome Text */
-    .welcome-text {
-      font-size: 64px; /* Adjusted for better fit */
-      font-weight: 600;
-      color: #333333; /* Darker text for better readability */
-      margin-bottom: 50px;
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
     }
 
-    /* Buttons Styling */
-    .button-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap; /* Allow wrapping for smaller screens */
-      gap: 20px; /* Space between buttons */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
       margin-bottom: 40px;
     }
 
+    .hero .button-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 300px;
-      height: 60px;
-      background: #007BFF; /* Primary blue color */
-      color: #ffffff;
-      font-size: 24px;
-      font-weight: 500;
-      text-transform: capitalize;
-      border: none;
-      border-radius: 8px; /* Smooth edges */
+      gap: 10px;
+      padding: 15px 30px;
+      background: #ff8800;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
       cursor: pointer;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Slight elevation */
-      transition: all 0.3s ease;
-      text-decoration: none; /* Remove underline */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    /* Button Hover Effect */
     .button:hover {
-      background: #0056b3; /* Darker blue on hover */
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); /* More elevation */
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      background: #d96f00;
+    }
+
+    .button i {
+      font-size: 1.2rem;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 60px;
+      text-align: center;
+      background: #e6f7ff;
+    }
+
+    .features h2 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      color: #004085;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.8rem;
+      color: #004085;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #555;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Scroll Animations */
+    [data-aos] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    [data-aos].aos-animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Keyframes for Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="content-container">
-    <!-- Welcome Text -->
-    <div class="welcome-text">Welcome To Amravati Airport</div>
-
-    <!-- Buttons -->
-    <div class="button-container">
-        <a href="/login_as_admin" class="button">Login As Admin</a>
-        <a href="/login_passenger" class="button">Login As Passenger</a>
-        <a href="/login_as_employee" class="button">Login As Employee</a>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="brand">Amravati Airport</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
     </div>
+  </nav>
 
-    <!-- Sign Up Buttons -->
-    <div class="button-container">
-        <a href="/sign_up_pass" class="button">Sign Up (Passenger)</a>
-        <!-- <a href="sign_up_employee" class="button">Sign Up (Employee)</a> -->
+  <!-- Hero Section -->
+  <header class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to Amravati Airport</h1>
+      <p>Your gateway to the skies, where convenience meets luxury.</p>
+      <div class="button-container">
+        <a href="/login_as_admin"  class="button"><i class="fas fa-user-shield"></i>Admin Login</a>
+        <a href="/login_passenger" class="button"><i class="fas fa-plane"></i>Passenger Login</a>
+        <a href="/login_as_employee" class="button"><i class="fas fa-user-tie"></i>Employee Login</a>
+        <a href="/sign_up_pass"  class="button"><i class="fas fa-user-plus"></i>Passenger Sign Up</a>
+      </div>
     </div>
-  </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2 data-aos="fade-up">Why Choose Amravati Airport?</h2>
+    <div class="features-grid">
+      <div class="feature-card" data-aos="fade-up">
+        <img src="https://source.unsplash.com/300x200/?airport,modern" alt="Modern Facilities">
+        <h3>Modern Facilities</h3>
+        <p>Experience state-of-the-art infrastructure and amenities for a seamless travel experience.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://source.unsplash.com/300x200/?airplane,service" alt="Top-Notch Service">
+        <h3>Top-Notch Service</h3>
+        <p>Our team is dedicated to providing world-class service for all your travel needs.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://source.unsplash.com/300x200/?lounge,comfort" alt="Exclusive Lounges">
+        <h3>Exclusive Lounges</h3>
+        <p>Relax and unwind in our premium lounges while waiting for your flight.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll Animation Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const elements = document.querySelectorAll("[data-aos]");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("aos-animate");
+          }
+        });
+      });
+
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
 </body>
 </html>
