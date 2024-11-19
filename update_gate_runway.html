@@ -106,6 +106,21 @@
       border: 1px solid #f5c6cb;
     }
 
+    /* Back Link */
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      color: #6a11cb;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #2575fc;
+    }
+    
     /* Animation */
     @keyframes fadeIn {
       from {
@@ -145,7 +160,7 @@
         <option value="runway">Runway Number</option>
       </select>
 
-      <!-- Input for Gate or Runway Number -->
+      <!-- Input for Gate or Runway Number --> 
       <label for="new-number" class="label">Enter New Gate/Runway Number:</label>
       <input 
         type="text" 
@@ -158,15 +173,15 @@
       <!-- Update Button -->
       <button type="submit" class="button">Update</button>
     </form>
-
     <!-- Messages -->
     {% if success %}
     <div class="message success">{{ success }}</div>
     {% endif %}
-
+    
     {% if error %}
     <div class="message error">{{ error }}</div>
     {% endif %}
+    <a href="/admin_landing_page" class="back-link">Back to Dashboard</a>
   </div>
 </body>
 </html>
