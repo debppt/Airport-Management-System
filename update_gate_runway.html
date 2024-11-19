@@ -82,6 +82,21 @@
       background-color: #0056b3; /* Darker blue */
       box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
     }
+
+    /* Success and Error Messages */
+    .message {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
   </style>
 </head>
 <body>
@@ -92,7 +107,7 @@
     <div class="title">Update Gate or Runway</div>
 
     <!-- Update Form -->
-    <form action="update_employee_gate_runway_action.html" method="POST">
+    <form action="/update_gate_runway" method="POST">
       <!-- Employee ID Field -->
       <label for="employee-id" class="label">Employee ID:</label>
       <input type="text" id="employee-id" name="employee-id" class="input-field" placeholder="Enter Employee ID" required>
@@ -112,6 +127,15 @@
       <!-- Update Button -->
       <button type="submit" class="button">Update</button>
     </form>
+
+    <!-- Messages -->
+    {% if success %}
+    <div class="message success">{{ success }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="message error">{{ error }}</div>
+    {% endif %}
   </div>
 
 </body>

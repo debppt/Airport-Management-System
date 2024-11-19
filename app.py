@@ -146,9 +146,7 @@ def register_passenger():
 
     return render_template('pass_sign_up.html', passenger_id=passenger_id, error_message=error_message)
 
-@app.route('/book_ticket')
-def book_ticket():
-    return render_template('book_ticket.html')
+
 
 @app.route('/see_tickets')
 def see_ticket():
@@ -430,6 +428,53 @@ def add_employee():
 def update_g_r():
     return render_template('update_gate_runway.html')
 
+@app.route('/update_gate_runway', methods=['GET', 'POST'])
+def update_gate_runway():
+    if request.method == 'POST':
+        # Get data from the form
+        employee_id = request.form['employee-id']
+        update_type = request.form['update-type']
+        new_number = request.form['new-number']
+
+        # Validate inputs
+        if not employee_id.isdigit() or not new_number.isdigit():
+            error = "Employee ID and Gate/Runway Number must be numeric."
+            return render_template('update_gate_runway.html', error=error)
+
+        employee_id = int(employee_id)
+        new_number = int(new_number)
+
+        if update_type not in ['gate', 'runway']:
+            error = "Invalid update type. Please select 'Gate' or 'Runway'."
+            return render_template('update_gate_runway.html', error=error)
+
+        # Database connection
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        try:
+            # Call the stored procedure
+            cursor.callproc('UpdateEmployeeGateRunway', (employee_id, update_type, new_number))
+            conn.commit()
+
+            # Success message
+            success = "Employee record updated successfully."
+            cursor.close()
+            conn.close()
+            return render_template('update_gate_runway.html', success=success)
+
+        except Exception as e:
+            # Rollback and handle errors
+            conn.rollback()
+            error = f"Error updating employee record: {str(e)}"
+            cursor.close()
+            conn.close()
+            return render_template('update_gate_runway.html', error=error)
+
+    return render_template('update_gate_runway.html')
+
+
+
 @app.route('/view_reports')
 def view_reports():
     return render_template('View_Report.html')
@@ -536,68 +581,83 @@ def employee_dashboard():
         return render_template('employee_sign_in.html', error_message="Invalid Employee ID")
 
 
+@app.route('/book_ticket')
+def book_ticket():
+    return render_template('book_ticket.html')
+
 @app.route('/check_flights', methods=['POST'])
 def check_available_flights():
-    # Extract form data
-    flight_date = request.form.get('flight-date')  # Input is a date (e.g., "2024-11-20")
-    destination_city = request.form.get('destination-id')  # City name
+    flight_date = request.form.get('flight-date')
+    destination_city = request.form.get('destination-id')
 
     if not flight_date or not destination_city:
-        return render_template(
-            'available_flights.html',
-            error="Please provide both date and destination city.",
-            flights=[],
-            flight_date=None,
-            destination_city=None
-        )
+        return render_template('available_flights.html', error="Please provide both date and destination.")
 
-    # Convert flight_date to a full datetime (e.g., start of the day)
     full_datetime = f"{flight_date} 00:00:00"
-
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
     try:
-        # Call the stored procedure
         cursor.callproc('GetAvailableFlights', (full_datetime, destination_city))
-
-        # Fetch the results from the procedure
-        flights = []
         for result in cursor.stored_results():
             flights = result.fetchall()
 
-        # If no flights are found, return with an error message
         if not flights:
             return render_template(
                 'available_flights.html',
-                error="No flights found for the selected date and destination.",
-                flights=[],
-                flight_date=flight_date,
-                destination_city=destination_city
+                error="No flights found for the selected date and destination."
             )
 
-        # Render results
         return render_template(
             'available_flights.html',
             flights=flights,
             flight_date=flight_date,
-            destination_city=destination_city,
-            error=None
+            destination_city=destination_city
         )
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-        return render_template(
-            'available_flights.html',
-            error="An error occurred while fetching available flights.",
-            flights=[],
-            flight_date=None,
-            destination_city=None
-        )
+        return render_template('available_flights.html', error="An error occurred while fetching flights.")
 
     finally:
         cursor.close()
         conn.close()
+
+
+@app.route('/book_tickets', methods=['POST'])
+def book_tickets():
+    # Extract form data
+    passenger_id = request.form.get('passenger-id')
+    flight_instance_id = request.form.get('flight-instance-id')
+
+    if not passenger_id or not flight_instance_id:
+        return render_template(
+            'available_flights.html',
+            flights=[],
+            error="Both Passenger ID and Flight Instance ID are required."
+        )
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        # Call the stored procedure
+        cursor.callproc('BookTicket', (int(passenger_id), int(flight_instance_id)))
+        conn.commit()
+
+        success = "Ticket successfully booked!"
+        return render_template('available_flights.html', success=success, flights=[])
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        error = f"An error occurred while booking the ticket: {err}"
+        return render_template('available_flights.html', error=error, flights=[])
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
 
 
 
