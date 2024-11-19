@@ -81,7 +81,7 @@ BEGIN
     DECLARE airline_id INT;
 
     -- Fetch required details from the flight table
-    SELECT Flight_ID, Departure_Time, AL_ID
+    SELECT Flight_instance_ID, Departure_Time, AL_ID
     INTO flight_id, flight_date, airline_id
     FROM flight
     WHERE Flight_instance_id = p_flight_instance_id;
@@ -96,24 +96,16 @@ DELIMITER ;
 -- 6. UPDATE GATE/RUNWAY NUMBER
 
 DELIMITER //
-
 CREATE PROCEDURE UpdateEmployeeGateRunway(
     IN p_employee_id INT,
     IN p_update_type VARCHAR(10),
     IN p_new_number INT
 )
 BEGIN
-    DECLARE current_gate INT;
-    DECLARE current_runway INT;
-
-    -- Check if employee exists
+    -- Check if the employee exists
     IF NOT EXISTS (SELECT 1 FROM employee WHERE Employee_ID = p_employee_id) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Employee not found.';
     END IF;
-
-    -- Get current gate and runway numbers
-    SELECT G_no, R_no INTO current_gate, current_runway
-    FROM employee WHERE Employee_id = p_employee_id;
 
     -- Update Gate or Runway based on the update type
     IF p_update_type = 'gate' THEN
@@ -121,11 +113,13 @@ BEGIN
         UPDATE employee
         SET G_No = p_new_number, R_No = NULL
         WHERE Employee_ID = p_employee_id;
+
     ELSEIF p_update_type = 'runway' THEN
         -- Update Runway Number and set Gate Number to NULL
         UPDATE employee
         SET R_No = p_new_number, G_No = NULL
         WHERE Employee_ID = p_employee_id;
+
     ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid update type.';
     END IF;
@@ -133,3 +127,4 @@ BEGIN
 END //
 
 DELIMITER ;
+

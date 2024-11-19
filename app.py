@@ -486,10 +486,10 @@ def update_gate_runway():
             conn.close()
             return render_template('update_gate_runway.html', success=success)
 
-        except Exception as e:
+        except mysql.connector.Error as err:
             # Rollback and handle errors
             conn.rollback()
-            error = f"Error updating employee record: {str(e)}"
+            error = f"{err.msg}"
             cursor.close()
             conn.close()
             return render_template('update_gate_runway.html', error=error)
