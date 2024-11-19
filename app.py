@@ -312,6 +312,17 @@ def add_flight():
 def view_employees():
     return render_template('view_employee.html')
 
+@app.route('/view_all_employees')
+def view_all_employees():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM employee")
+    employees = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('view_all_employee.html', employees=employees)
+
+
 @app.route('/delete_employee', methods=['GET', 'POST'])
 def delete_employee():
     if request.method == 'POST':
