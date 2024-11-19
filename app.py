@@ -536,8 +536,68 @@ def employee_dashboard():
         return render_template('employee_sign_in.html', error_message="Invalid Employee ID")
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/check_flights', methods=['POST'])
+def check_available_flights():
+    # Extract form data
+    flight_date = request.form.get('flight-date')  # Input is a date (e.g., "2024-11-20")
+    destination_city = request.form.get('destination-id')  # City name
+
+    if not flight_date or not destination_city:
+        return render_template(
+            'available_flights.html',
+            error="Please provide both date and destination city.",
+            flights=[],
+            flight_date=None,
+            destination_city=None
+        )
+
+    # Convert flight_date to a full datetime (e.g., start of the day)
+    full_datetime = f"{flight_date} 00:00:00"
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        # Call the stored procedure
+        cursor.callproc('GetAvailableFlights', (full_datetime, destination_city))
+
+        # Fetch the results from the procedure
+        flights = []
+        for result in cursor.stored_results():
+            flights = result.fetchall()
+
+        # If no flights are found, return with an error message
+        if not flights:
+            return render_template(
+                'available_flights.html',
+                error="No flights found for the selected date and destination.",
+                flights=[],
+                flight_date=flight_date,
+                destination_city=destination_city
+            )
+
+        # Render results
+        return render_template(
+            'available_flights.html',
+            flights=flights,
+            flight_date=flight_date,
+            destination_city=destination_city,
+            error=None
+        )
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return render_template(
+            'available_flights.html',
+            error="An error occurred while fetching available flights.",
+            flights=[],
+            flight_date=None,
+            destination_city=None
+        )
+
+    finally:
+        cursor.close()
+        conn.close()
 
 
 

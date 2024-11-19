@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Flights - Amravati Airport</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 50px auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    .error {
+      color: red;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .button {
+      display: inline-block;
+      width: auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Available Flights</div>
+
+    <!-- Subtitle -->
+    {% if flight_date and destination_city %}
+    <div class="subtitle">
+      Flights for {{ flight_date }} to {{ destination_city }}
+    </div>
+    {% endif %}
+
+    <!-- Error Message -->
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <!-- Flight Table -->
+    {% if flights and not error %}
+    <table>
+      <thead>
+        <tr>
+          <th>Flight ID</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
+          <th>Destination</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for flight in flights %}
+        <tr>
+          <td>{{ flight.Flight_instance_ID }}</td>
+          <td>{{ flight.Departure_Time }}</td>
+          <td>{{ flight.Arrival_Time }}</td>
+          <td>{{ flight.Destination }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+    <!-- Back to Dashboard Button -->
+    <a href="/" class="button">Back to Dashboard</a>
+  </div>
+</body>
+</html>
