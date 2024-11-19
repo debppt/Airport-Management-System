@@ -166,7 +166,7 @@ def view_tickets_form():
         cursor = conn.cursor(dictionary=True)
 
         query = """
-        SELECT Seat_No, Booking_Date, Booking_Status, Flight_id, Airline_id, Passenger_id, ticketscol
+        SELECT Flight_Date, Booking_Status, Flight_id, Airline_id, Passenger_id
         FROM tickets
         WHERE Passenger_id = %s
         """

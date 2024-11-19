@@ -68,25 +68,21 @@
     <table class="ticket-table">
       <thead>
         <tr>
-          <th>Seat Number</th>
-          <th>Booking Date</th>
+          <th>Flight Date</th>
           <th>Booking Status</th>
           <th>Flight ID</th>
           <th>Airline ID</th>
           <th>Passenger ID</th>
-          <th>Additional Info</th>
         </tr>
       </thead>
       <tbody>
         {% for ticket in tickets %}
         <tr>
-          <td>{{ ticket.Seat_No }}</td>
-          <td>{{ ticket.Booking_Date }}</td>
+          <td>{{ ticket.Flight_Date }}</td>
           <td>{{ ticket.Booking_Status }}</td>
           <td>{{ ticket.Flight_id }}</td>
           <td>{{ ticket.Airline_id }}</td>
           <td>{{ ticket.Passenger_id }}</td>
-          <td>{{ ticket.ticketscol }}</td>
         </tr>
         {% endfor %}
       </tbody>
