@@ -289,7 +289,7 @@ def add_flight():
             # Convert the datetime strings to datetime objects first
             departure_datetime = datetime.strptime(departure_time, "%Y-%m-%dT%H:%M")
             arrival_datetime = datetime.strptime(arrival_time, "%Y-%m-%dT%H:%M")
-            wait_duration = arrival_datetime - departure_datetime
+            wait_duration =  departure_datetime - arrival_datetime
 
             # Insert flight details into flight table
             query = """
