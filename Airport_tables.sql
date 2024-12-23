@@ -110,7 +110,6 @@ CREATE TABLE `flight` (
   `Runway_N` int unsigned NOT NULL,
   `Gate_N` int unsigned NOT NULL,
   PRIMARY KEY (`Flight_instance_id`),
-  UNIQUE KEY `Flight_id_UNIQUE` (`Flight_id`),
   UNIQUE KEY `Flight_instance_id_UNIQUE` (`Flight_instance_id`),
   KEY `fk_al_id` (`AL_ID`),
   KEY `fk_ap_id` (`AP_ID`),
